@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.redis.connection.RedisClusterConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisSentinelConnection;
 import org.springframework.data.redis.core.*;
 
 import java.text.ParseException;
@@ -18,6 +21,11 @@ public class RedisdemoApplication {
         ConfigurableApplicationContext context = SpringApplication.run(RedisdemoApplication.class, args);
         RedisTemplate redisTemplate = (RedisTemplate) context.getBean("getRedisTemplate");
 
+        /**
+         * 哨兵和集群可以通过这种方式得到连接
+         */
+//        RedisSentinelConnection redisSentinelConnection = ((RedisConnectionFactory) context.getBean("redisConnectionFactory")).getSentinelConnection();
+//        RedisClusterConnection redisClusterConnection = ((RedisConnectionFactory) context.getBean("redisConnectionFactory")).getClusterConnection();
 
         ValueOperations vs = redisTemplate.opsForValue();
         HashOperations hs = redisTemplate.opsForHash();
